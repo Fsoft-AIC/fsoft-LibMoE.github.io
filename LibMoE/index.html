@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs">
+  <meta property="og:title" content="CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs"/>
+  <meta property="og:description" content="Multiple Choice QA Benchmark for Assessing Code Understanding Capabilities"/>
+  <meta property="og:url" content="https://fsoft-ai4code.github.io/codemmlu/"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+  <!-- TODO: replace with CodeMMLU logo -->
+  <link rel="icon" href="static/images/codemmlu-logo.png">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    th[colspan="2"] {
+        border-bottom: 2px solid black;
+    }
+    .highlight {
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://fsoft-ai4code.github.io/repoexec/">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        </a>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://fsoft-ai4code.github.io/repoexec/">
+              RepoExec
+            </a>
+            <a class="navbar-item" href="https://fsoft-ai4code.github.io/agilecoder/">
+              AgileCoder
+            </a>
+            <a class="navbar-item" href="https://fsoft-ai4code.github.io/srank-coderanker/">
+              SRank-CodeRanker
+            </a>
+            <a class="navbar-item" href="https://fsoft-ai4code.github.io/codemmlu/">
+              CodeMMLU
+            </a>
+          </div>
+            
+        </div>
+        
+      </div>
+  
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://nmd2k.github.io" target="_blank">Dung Nguyen Manh<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://namcyan.github.io" target="_blank">Nam Le Hai<sup>1,3</sup></a>,</span>
+                <span class="author-block">
+                <a href="" target="_blank">Thang Phan Chau<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="" target="_blank">Thong T. Doan<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="" target="_blank">Nam V. Nguyen<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="" target="_blank">Quang Pham<sup>4</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://bdqnghi.github.io" target="_blank">Nghi D. Q. Bui<sup>2</sup></a>
+                </span>
+                </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>1</sup>FPT Software AI Center, <sup>2</sup>Fulbright University, Viet Nam</span>
+                    <span class="author-block"><sup>3</sup>Hanoi University of Science and Technology, <sup>4</sup>VNU-HCM- University of Science, Viet Nam</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://github.com/FSoft-AI4Code/CodeMMLU/blob/master/paper/main.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- Supplementary PDF link -->
+                    <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/FSoft-AI4Code/CodeMMLU" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>GitHub</span>
+                  </a>
+                </span>
+
+                  <!-- ArXiv abstract Link -->
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2410.01999" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                  <!-- Data Link -->
+                  <span class="link-block">
+                    <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>&#129303; Dataset</span>
+                  </a>
+                </span>
+
+                <!-- Leaderboard Link -->
+                <span class="link-block">
+                  <a href="https://fsoft-ai4code.github.io/leaderboards/codemmlu/" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span>🏆 Leaderboard</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/demo.gif" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+      </h2>
+    </div>
+  </div>
+</section> -->
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent advancements in Code Large Language Models (CodeLLMs) have predominantly focused on open-ended code generation tasks, often neglecting the critical aspect of code understanding and comprehension. To bridge this gap, we present CodeMMLU, a comprehensive multiple-choice question-answer benchmark designed to evaluate the depth of software and code understanding in LLMs. CodeMMLU includes over 10,000 questions sourced from diverse domains, encompassing tasks such as code analysis, defect detection, and software engineering principles across multiple programming languages. Unlike traditional benchmarks, CodeMMLU assesses models’ ability to reason about code rather than merely generate it, providing deeper insights into their grasp of complex software concepts and systems. Our extensive evaluation reveals that even state-of-the-art models face significant challenges with CodeMMLU, highlighting deficiencies in comprehension beyond code generation. By underscoring the crucial relationship between code understanding and effective generation, CodeMMLU serves as a vital resource for advancing AI-assisted software development, ultimately aiming to create more reliable and capable coding assistants.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce CodeMMLU, a novel benchmark designed to evaluate CodeLLMs' ability to understand and comprehend code through multi-choice question answering (MCQA). This approach enables a deeper assessment of how CodeLLMs grasp coding concepts, moving beyond mere generation capabilities. Inspired by the MMLU dataset from natural language understanding, CodeMMLU offers a robust and easily evaluable methodology with the following key features:
+          </p>
+          <p>
+          </p>
+          <p>
+            <ul>
+              <li><b>Comprehensiveness:</b> CodeMMLU comprises over 10,000 questions curated from diverse, high-quality sources, mitigating potential bias from limited evaluation data.</li>
+              <li><b>Diversity in task, domain, and language:</b> The dataset covers a wide spectrum of software knowledge, including general QA, code generation, defect detection, and code repair across various domains and more than 10 programming languages.</li>
+            </ul>
+          </p>
+          <p></p>
+          CodeMMLU enables us to assess LLMs’ capabilities in coding and software tasks from a novel perspective, extending beyond traditional code generation and completion. Our analysis reveals several notable findings: (1) previously unexplored bias issues in CodeLLMs, aligning with those observed in natural language MCQA tasks; (2) GPT-4 consistently achieving the highest average performance among closed-source models, while (3) the Meta-Llama family demonstrated the greatest accuracy among open-source models; (4) scaling laws related to model size were partially observed within the same model family but not across different families, suggesting the significant influence of pretraining datasets, methodologies, and model architectures; (5) advanced prompting techniques, such as Chain-of-Thought (CoT), consistently degraded performance, raising concerns about CodeLLMs’ reasoning abilities on complex, step-by-step tasks; and (6) benchmarks like HumanEval, when converted from open-ended code generation to MCQA format, show that LLMs perform worse on MCQA, raising concerns about their real capability to understand and comprehend code. These findings highlight the current shortcomings of CodeLLMs and the intricate relationship between model architecture, training data quality, and evaluation methods in determining performance on software-related tasks.
+          </p>
+          <p>
+          </p>
+          <p>
+            <b>Our key contributions are:</b>
+            <ul>
+              <li>We present the first MCQA benchmark for software and coding-related knowledge, addressing the need for diverse evaluation scenarios in the code domain. CodeMMLU enables the evaluation of LLMs' alignment with human inference in the software knowledge domain, similar to advancements in the NLP field.</li>
+              <li>CodeMMLU provides a thorough assessment of LLM capabilities, ensuring a substantial number of samples and diversity across tasks, domains, and languages. This enables a more nuanced understanding of an LLM's strengths and weaknesses, facilitating the development of models better aligned with the complexities and demands of the software domain.</li>
+              <li>Our experiments offer critical insights into LLM performance, highlighting the impact of factors such as model size, model family, and prompting techniques. This provides essential information to the community on effectively utilizing LLMs for specific tasks and domains in software engineering.</li>
+            </ul>
+          </p>
+        </div>
+        <figure>
+          <img src="static/images/data-creation-flow.png", width="100%"></img>
+          <figcaption><i><b>Overview of CodeMMLU data creation pipeline.</b> The blue diagram describe the process of collecting raw multiple-choice questions (MCQs) from open source internet for a knowledge testset. Otherwise, the pipeline of real-world problem indicated in orange area.</i></figcaption>
+        </figure>
+        <!-- <embed src="static/images/data_pipeline.pdf" width="100%"/> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Evaluation Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            CodeMMLU revealed significant performance differences across models, as shown in the table below. OpenAI's GPT-4o outperformed all models on CodeMMLU, demonstrating its quality across diverse tasks. Notably, despite not being the latest model, the instructed version of Meta-Llama-3-70B achieved the highest score among open-source models from 8 families. While LLMs perform well on knowledge-based tasks, they struggle with real-world problems, particularly in defect detection tasks.
+          </p>
+        </div>
+        <div class="content has-text-justified">
+          <style type="text/css">
+            .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+            .tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-baqh{text-align:center;vertical-align:top}
+            .tg .tg-buh4{background-color:#f9f9f9;text-align:left;vertical-align:top}
+            .tg .tg-0lax{text-align:left;vertical-align:top}
+            .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+            </style>
+            <table class="tg"><thead>
+              <tr>
+                <th class="tg-0lax"></th>
+                <th class="tg-amwm">Model name</th>
+                <th class="tg-amwm">Size (B)</th>
+                <th class="tg-amwm">Syntactic knowledge</th>
+                <th class="tg-amwm">Semantic knowledge</th>
+                <th class="tg-amwm">Real-world tasks</th>
+                <th class="tg-amwm">CodeMMLU</th>
+              </tr></thead>
+            <tbody>
+              <tr>
+                <td class="tg-baqh" colspan="7">Closed-source models&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Anthropic</td>
+                <td class="tg-buh4">Claude-3-sonnet@20240229</td>
+                <td class="tg-0lax">-</td>
+                <td class="tg-buh4"><b>67.22</b></td>
+                <td class="tg-0lax"><b>66.08</b></td>
+                <td class="tg-buh4">38.26</td>
+                <td class="tg-0lax">53.97</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="2">OpenAI</td>
+                <td class="tg-buh4">GPT-4o-2024-05-13</td>
+                <td class="tg-0lax">-</td>
+                <td class="tg-buh4">60.41</td>
+                <td class="tg-0lax">57.82</td>
+                <td class="tg-buh4"><b>77.18</b></td>
+                <td class="tg-0lax"><b>67.0</b></td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">GPT-3.5-turbo-0613</td>
+                <td class="tg-0lax">-</td>
+                <td class="tg-buh4">61.68</td>
+                <td class="tg-0lax">53.64</td>
+                <td class="tg-buh4">45.26</td>
+                <td class="tg-0lax">51.7</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax" colspan="7">Open-source models&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="5">Meta Llama</td>
+                <td class="tg-buh4">CodeLlama-34b-Instruct-hf</td>
+                <td class="tg-0lax">34</td>
+                <td class="tg-buh4">56.81</td>
+                <td class="tg-0lax">46.93</td>
+                <td class="tg-buh4">23.55</td>
+                <td class="tg-0lax">38.73</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Meta-Llama-3-70B</td>
+                <td class="tg-0lax">70</td>
+                <td class="tg-buh4">63.38</td>
+                <td class="tg-0lax">57.64</td>
+                <td class="tg-buh4">35.29</td>
+                <td class="tg-0lax">48.98</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Meta-Llama-3-70B-Instruct</td>
+                <td class="tg-0lax">70</td>
+                <td class="tg-buh4"><b>64.90</b></td>
+                <td class="tg-0lax"><b>62.96</b></td>
+                <td class="tg-buh4"><b>60.84</b></td>
+                <td class="tg-0lax"><b>62.45</b></td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Meta-Llama-3.1-70B</td>
+                <td class="tg-0lax">70</td>
+                <td class="tg-buh4">64.09</td>
+                <td class="tg-0lax">59.00</td>
+                <td class="tg-buh4">8.22</td>
+                <td class="tg-0lax">37.56</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Meta-Llama-3.1-70B-Instruct</td>
+                <td class="tg-0lax">70</td>
+                <td class="tg-buh4">64.42</td>
+                <td class="tg-0lax">62.25</td>
+                <td class="tg-buh4">56.11</td>
+                <td class="tg-0lax">60</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="3">Mistral</td>
+                <td class="tg-buh4">Mistral-7B-Instruct-v0.3</td>
+                <td class="tg-0lax">7</td>
+                <td class="tg-buh4">54.42</td>
+                <td class="tg-0lax">51.25</td>
+                <td class="tg-buh4">31.85</td>
+                <td class="tg-0lax">43.33</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Mixtral-8x7B-Instruct-v0.1</td>
+                <td class="tg-0lax">46.7</td>
+                <td class="tg-buh4">61.17</td>
+                <td class="tg-0lax">54.89</td>
+                <td class="tg-buh4">24.90</td>
+                <td class="tg-0lax">42.96</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Codestral-22B-v0.1</td>
+                <td class="tg-0lax">22</td>
+                <td class="tg-buh4">60.34</td>
+                <td class="tg-0lax">52.11</td>
+                <td class="tg-buh4">37.86</td>
+                <td class="tg-0lax">47.6</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="2">Phi</td>
+                <td class="tg-buh4">Phi-3-medium-128k-instruct</td>
+                <td class="tg-0lax">14</td>
+                <td class="tg-buh4">58.54</td>
+                <td class="tg-0lax">54.56</td>
+                <td class="tg-buh4">37.89</td>
+                <td class="tg-0lax">48.03</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Phi-3-mini-128k-instruct</td>
+                <td class="tg-0lax">3.8</td>
+                <td class="tg-buh4">53.01</td>
+                <td class="tg-0lax">48.65</td>
+                <td class="tg-buh4">22.36</td>
+                <td class="tg-0lax">37.93</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="2">Qwen</td>
+                <td class="tg-buh4">Qwen2-57B-A14B-Instruct</td>
+                <td class="tg-0lax">57</td>
+                <td class="tg-buh4">61.34</td>
+                <td class="tg-0lax">57.48</td>
+                <td class="tg-buh4">30.48</td>
+                <td class="tg-0lax">46.34</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">CodeQwen1.5-7B-Chat</td>
+                <td class="tg-0lax">7</td>
+                <td class="tg-buh4">49.66</td>
+                <td class="tg-0lax">46.58</td>
+                <td class="tg-buh4">56.37</td>
+                <td class="tg-0lax">49.82</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="2">Yi</td>
+                <td class="tg-buh4">Yi-1.5-34B-Chat</td>
+                <td class="tg-0lax">34</td>
+                <td class="tg-buh4">58.32</td>
+                <td class="tg-0lax">55.59</td>
+                <td class="tg-buh4">40.27</td>
+                <td class="tg-0lax">49.39</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Yi-1.5-9B-Chat</td>
+                <td class="tg-0lax">9</td>
+                <td class="tg-buh4">55.64</td>
+                <td class="tg-0lax">55.06</td>
+                <td class="tg-buh4">37.15</td>
+                <td class="tg-0lax">47.23</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="4">Deep Seek</td>
+                <td class="tg-buh4">DeepSeek-coder-7b-instruct-v1.5</td>
+                <td class="tg-0lax">7</td>
+                <td class="tg-buh4">56.67</td>
+                <td class="tg-0lax">47.90</td>
+                <td class="tg-buh4">28.46</td>
+                <td class="tg-0lax">41.21</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">DeepSeek-coder-33b-instruct</td>
+                <td class="tg-0lax">33</td>
+                <td class="tg-buh4">53.65</td>
+                <td class="tg-0lax">46.11</td>
+                <td class="tg-buh4">21.47</td>
+                <td class="tg-0lax">36.6</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">DeepSeek-moe-16b-chat</td>
+                <td class="tg-0lax">16.4</td>
+                <td class="tg-buh4">31.74</td>
+                <td class="tg-0lax">35.43</td>
+                <td class="tg-buh4">27.33</td>
+                <td class="tg-0lax">31.01</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">DeepSeek-Coder-V2-Lite-Instruct</td>
+                <td class="tg-0lax">16</td>
+                <td class="tg-buh4">59.91</td>
+                <td class="tg-0lax">54.76</td>
+                <td class="tg-buh4">33.62</td>
+                <td class="tg-0lax">46.51</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">InternLM</td>
+                <td class="tg-buh4">InternLM2-5-20b-chat</td>
+                <td class="tg-0lax">20</td>
+                <td class="tg-buh4">57.85</td>
+                <td class="tg-0lax">55.51</td>
+                <td class="tg-buh4">30.44</td>
+                <td class="tg-0lax">44.89</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">StarCoder2</td>
+                <td class="tg-buh4">StarCoder2-15b-instruct-v0.1</td>
+                <td class="tg-0lax">15</td>
+                <td class="tg-buh4">56.58</td>
+                <td class="tg-0lax">49.07</td>
+                <td class="tg-buh4">42.79</td>
+                <td class="tg-0lax">47.94</td>
+              </tr>
+            </tbody></table>
+            <figcaption><i><b>Summary performance of LLM family on CodeMMLU.</b> The evaluation results (accuracy %) of different language models across CodeMMLU task.</i></figcaption>
+        </div>
+        <!-- <figure>
+          <img src="static/images/llm_result.png", width="100%">
+          <figcaption><i>Table 1:  Pass@k (k= 1 and 5) and DIR results of various LLMs on RepoExec</i></figcaption>
+        </figure> -->
+        <div class="content has-text-justified">
+          <p>
+            For more benchmark detail, please check <a href="https://fsoft-ai4code.github.io/leaderboards/codemmlu/">👉 HERE 👈</a>
+          </p>
+        </div>
+        <figure>
+          <img src="static/images/task_detail.png", width="100%"></img>
+          <figcaption><i><b>CodeMMLU accuracy by task on LLMs.</b> While knowledge tasks are following the scaling law, real-world tasks offer more challenges to LLMs which indicate the performance of instruction tuning and data quality when evaluating on CodeMMLU.</i></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- <section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Enhancing Functional Correctness and Dependency Invocation abilities</h2>
+        <div class="content has-text-justified">
+          <p>
+            Two approaches are investigated to enhance the performance of generated code in terms of both functional correctness and dependency invocation.
+            <ul>
+              <li><b>Multi-round Debugging:</b> Leveraging test execution outputs and incorporating self-refinement through multiple rounds can dramatically boost a model's performance in generating accurate code and effectively utilizing dependencies.</li>
+              <figure>
+                <img src="static/images/debug_result.png", width="100%">
+                <figcaption>Figure 2:  Improvement of the performance of several models on RepoExec after 3-round debugging process.</figcaption>
+              </figure>
+              <li><b>Instruction tuning:</b> RepoExec also comes with a valuable instruction-tuning training dataset. The experimental results, highlighted in the table below, clearly demonstrate the effectiveness of this approach with just a single round of generation.</li>
+              <figure>
+                <img src="static/images/instruction_tuning.png", width="100%">
+                <figcaption>Table 2:  Improvement of the performance of several models on RepoExec after instruction tuning.</figcaption>
+              </figure>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End paper abstract -->
+
+
+
+<!-- Youtube video -->
+<!--  -->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{dung2024codemmlu,
+  title={CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs},
+  author={Manh, Dung Nguyen and Chau, Thang Phan and Hai, Nam Le and Doan, Thong T and Nguyen, Nam V and Pham, Quang and Bui, Nghi DQ},
+  journal={arXiv preprint arXiv:2410.01999v1},
+  year={2024}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content", style="text-align: center;">
+          <img src="static/images/aic_logo.png", width="120px">
+          <p>
+            <h5>Contact us</h5>
+            🌐: <a href="https://www.fpt-aicenter.com/ai-residency/">fpt-aicenter</a>
+            Ⓜ️: support.ailab@fpt.com
+            </ul>
+          </p>
+          <p>
+            <h5>Acknowledgements</h5>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+</body>
+</html>
