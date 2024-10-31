@@ -1,5 +1,5 @@
-# CodeMMLU: A Multi-Task Benchmark for Assessing Code Understanding Capabilities of CodeLLMs
-Project page of CodeMMLU benchmark dataset. Check out its [GitHub](https://github.com/FSoft-AI4Code/CodeMMLU) page.
+# LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models
+Project page of LIBMoE. Check out its [GitHub](https://github.com/Fsoft-AIC/LibMoE) page.
 
 ## Acknowledgments
 Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.

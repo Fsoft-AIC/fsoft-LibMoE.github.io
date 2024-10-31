@@ -1,11 +1,712 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empty Website</title>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models">
+  <meta property="og:title" content="LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models"/>
+  <meta property="og:description" content="Multiple Choice QA Benchmark for Assessing Code Understanding Capabilities"/>
+  <meta property="og:url" content="https://fsoft-ai4code.github.io/codemmlu/"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+  <!-- TODO: replace with CodeMMLU logo -->
+  <link rel="icon" href="static/images/libmoe-logo.png">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    th[colspan="2"] {
+        border-bottom: 2px solid black;
+    }
+    .highlight {
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
-    <p>Welcome to Fsoft-AI4Code</p>
+
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://fsoft-ai4code.github.io/repoexec/">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        </a>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io">
+              LibMoE
+            </a>
+          </div>
+            
+        </div>
+        
+      </div>
+  
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Nam V. Nguyen<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Thong T. Doan<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Luong Tran<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://sites.google.com/view/vannguyen" target="_blank">Van Nguyen<sup>1</sup></a>,</span>
+                <span class="author-block">
+                <a href="https://sites.google.com/view/quangpham93" target="_blank">Quang Pham<sup>1, 2</sup></a>,</span>
+                </span>
+                </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>1</sup>FPT Software AI Center, <sup>2</sup>VNU-HCM- University of Science, Viet Nam</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- Supplementary PDF link -->
+                    <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/Fsoft-AIC/LibMoE" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>GitHub</span>
+                  </a>
+                </span>
+
+                  <!-- ArXiv abstract Link -->
+                  <span class="link-block">
+                    <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                  <!-- Data Link -->
+                  <span class="link-block">
+                    <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/dataset_guide.md" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>&#129303; Data Guide</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/model_guide.md" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span>&#129303; Model Guide</span>
+                </a>
+              </span>
+
+                <!-- Leaderboard Link -->
+                <!-- <span class="link-block">
+                  <a href="https://fsoft-ai4code.github.io/leaderboards/codemmlu/" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span>🏆 Leaderboard</span>
+                </a> -->
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/demo.gif" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+      </h2>
+    </div>
+  </div>
+</section> -->
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Mixture of Experts (MoEs) plays an important role in the development of more efficient and effective large language models (LLMs). Due to the enormous resource requirements, studying large scale MoE algorithms remain in-accessible to many researchers. This work develops LibMoE, a comprehensive and modular framework to streamline the research, training, and evaluation of MoE algorithms. Built upon three core principles: (i) modular design, (ii) efficient training; (iii) comprehensive evaluation, LibMoE brings MoE in LLMs more accessible to a wide range of researchers by standardizing the training and evaluation pipelines. Using LibMoE, we extensively benchmarked five state-of-the-art MoE algorithms over three different LLMs and 11 datasets under the zero-shot setting. The results show that despite the unique characteristics, all MoE algorithms perform roughly similar when averaged across a wide range of tasks. With the modular design and extensive evaluation, we believe LibMoE will be invaluable for researchers to make meaningful progress towards the next generation of MoE and LLMs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our work introduces <b>LibMoE</b>, a toolkit designed to simplify MoE research in LLMs by supporting distributed training and comprehensive evaluations across multiple MoE algorithms. With a modular design, LibMoE allows for extensive customization of MoE components (e.g., sparsity, router interactions, balancing losses). Incorporating the latest sparse upcycling techniques, it enables affordable MoE integration into existing dense LLM checkpoints. Our training pipeline, achievable within <b>55 hours</b> using <b>4 x A100 GPUs</b>, while the MoE upcycling step can be finished within <b>32 hours</b> only, offers a cost-effective solution while preserving evaluation fidelity. Our main contributions is summarized below:
+          </p>
+          <p>
+          </p>
+          <p>
+            <ul>
+              <li>First, we present LibMoE, a comprehensive toolkit to streamline the development of MoE in LLMs.</li>
+              <li> Second, with LibMoE, we implemented a standard benchmark to standardize the evaluation of five state-of-the-art MoE algorithms.</li>
+              <li>  Lastly, LibMoE facilitates research beyond reporting the final performance by allowing researchers to easily explore various factors such as early-stopping, expert assignments, architecture choices, and many more.</li>
+            </ul>
+          </p>
+          <p>
+        </div>
+        <figure>
+          <img src="static/images/design_principle.png", width="100%"></img>
+          <figcaption><i><b>The detailed design of LiBMoE</b>, which comprises three major modules. First, the MoE module implements various MoE algorithms. Second, the training modules handles the training process and supports various configurations. Lastly, the evaluation module supports almost 100 zero-shot benchmarks and a wide-range of metrics.</i></figcaption>
+        </figure>
+        <!-- <embed src="static/images/data_pipeline.pdf" width="100%"/> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Training and Evaluation Pipelines</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Training Pipeline:</b> training, we adopt the vision-language pre-training task, which is one of the more challenging problems and only requires a rather small amount of data to start (around 1e9 tokens). To this end, we follow the CUMO framework to upcycle the LLaVA model, which consists of three modules: a pre-trained visual encoder, a pre-trained LLM, and a randomly initialized MLP connector. Training follows a <b>two-stage process</b>: 
+          </p>
+          <p>
+            <ul>
+              <li> <b>Dense Training</b> The dense training stage initializes the MLP connector and trains it to connect the pre-trained visual encoder to the pre-trained LLM.</li>
+              <li> <b>MoE Training</b> the MoE training stage upcycles the model to become MoE and also trains all components to obtain the visual instruction following capabilities.</li>
+            </ul>
+          </p>
+
+          <p>
+            <b>Evaluation Pipeline:</b> To drive the MoE developments towards real-world scenarios, we implement LibMoE to evaluate the algorithms in the zero-shot setting. To this end, we modify the <b>LMMS-Eval framework</b> to evaluate the final checkpoints of various MoE algorithms. Particularly, we carefully select <b>11 popular benchmarks</b> provided by LMMS-Eval and report the evaluation results. Additionally, we also provide a LibMoE's model loader so that future users can freely explore almost <b>100 benchmarks</b> supported by LMMS-Eval.
+          </p>
+        </div>
+        <figure>
+          <img src="static/images/training_module.png", width="100%"></img>
+          <figcaption><i><b>Overview of the LibMoE architecture and training process.</b> In the first stage of Dense Training, only the MLP is trained to improve alignment. In the second stage, all parameters are trained. During MoE Training, the feed-forward networks (FFNs) of the Vision Encoder (VE) and MLP Connector are used to initialize the experts within the MoE framework, and all parameters continue to be trained.</i></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experimental results</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Comparison of MoE algorithms on different models and training data Sizes for visual instruction tuning.</strong> The data set is constructed from LLaVA-665K. We highlight the highest (best) results in bold. Model: We consider five algorithms: SMoE-R (SMoE Router), Cosine-R, Sigmoid-R (Sigmoid Router), Hyper-R (Hyper Router), and Perturbed Cosine-R (Perturbed Cosine Router). We only show the performance of <b>CLIP + Phi3 model</b>, To see the full results, please visit our <a href="https://github.com/Fsoft-AIC/LibMoE">👉 <b>Paper</b> 👈</a>.
+          </p>
+        </div>
+        
+        <div class="content has-text-justified" style="display: flex; justify-content: center;">
+          <style type="text/css">
+            .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+            .tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-baqh{text-align:center;vertical-align:center;font-weight: bold;}
+            .tg .tg-buh4{background-color:#f9f9f9;text-align:center;vertical-align:top}
+            .tg .tg-0lax{text-align:center;vertical-align:top}
+            .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+          </style>
+          <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-amwm">Data</th>
+                <th class="tg-amwm">Model</th>
+                <th class="tg-amwm">MoE Method</th>
+                <th class="tg-amwm">AI2D</th>
+                <th class="tg-amwm">Text VQA</th>
+                <th class="tg-amwm">GQA</th>
+                <th class="tg-amwm">Hallusion Benchmark</th>
+                <th class="tg-amwm">MathVista Validation</th>
+                <th class="tg-amwm">MMBenchEN dev</th>
+                <th class="tg-amwm">MMMU Validation</th>
+                <th class="tg-amwm">MMStar</th>
+                <th class="tg-amwm">POPE</th>
+                <th class="tg-amwm">SQA Full</th>
+                <th class="tg-amwm">MME</th>
+                <th class="tg-amwm">AVEGAGE: (w/o MME)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-baqh" rowspan="5">332k</td>
+                <td class="tg-baqh" rowspan="5">CLIP + Phi3</td>
+                <td class="tg-buh4">SMoE-R</td>
+                <td class="tg-buh4">63.67</td>
+                <td class="tg-buh4">47.47</td>
+                <td class="tg-buh4">59.46</td>
+                <td class="tg-buh4">43.32</td>
+                <td class="tg-buh4">31.60</td>
+                <td class="tg-buh4">66.67</td>
+                <td class="tg-buh4">40.11</td>
+                <td class="tg-buh4">37.94</td>
+                <td class="tg-buh4">86.87</td>
+                <td class="tg-buh4">77.23</td>
+                <td class="tg-buh4">1,608.21</td>
+                <td class="tg-buh4">55.42</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Cosine-R</td>
+                <td class="tg-buh4">63.31</td>
+                <td class="tg-buh4">48.83</td>
+                <td class="tg-buh4">59.25</td>
+                <td class="tg-buh4">41.54</td>
+                <td class="tg-buh4">31.80</td>
+                <td class="tg-buh4">67.96</td>
+                <td class="tg-buh4">39.56</td>
+                <td class="tg-buh4">39.09</td>
+                <td class="tg-buh4">86.81</td>
+                <td class="tg-buh4">76.96</td>
+                <td class="tg-buh4"><b>1,637.99</b></td>
+                <td class="tg-buh4">55.51</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Sigmoid-R</td>
+                <td class="tg-buh4">63.80</td>
+                <td class="tg-buh4">47.74</td>
+                <td class="tg-buh4">59.24</td>
+                <td class="tg-buh4">41.43</td>
+                <td class="tg-buh4">31.40</td>
+                <td class="tg-buh4">68.30</td>
+                <td class="tg-buh4">40.78</td>
+                <td class="tg-buh4">38.70</td>
+                <td class="tg-buh4">87.49</td>
+                <td class="tg-buh4">77.61</td>
+                <td class="tg-buh4">1,611.36</td>
+                <td class="tg-buh4">55.65</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Hyper-R</td>
+                <td class="tg-buh4">64.05</td>
+                <td class="tg-buh4">47.76</td>
+                <td class="tg-buh4">59.61</td>
+                <td class="tg-buh4">41.11</td>
+                <td class="tg-buh4">32.50</td>
+                <td class="tg-buh4">69.24</td>
+                <td class="tg-buh4">41.33</td>
+                <td class="tg-buh4">39.27</td>
+                <td class="tg-buh4">86.68</td>
+                <td class="tg-buh4">77.31</td>
+                <td class="tg-buh4">1,602.59</td>
+                <td class="tg-buh4"><b>55.89</b></td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Perturbed Cosine-R</td>
+                <td class="tg-buh4">64.60</td>
+                <td class="tg-buh4">47.92</td>
+                <td class="tg-buh4">59.08</td>
+                <td class="tg-buh4">41.54</td>
+                <td class="tg-buh4">30.60</td>
+                <td class="tg-buh4">67.87</td>
+                <td class="tg-buh4">40.22</td>
+                <td class="tg-buh4">38.84</td>
+                <td class="tg-buh4">86.81</td>
+                <td class="tg-buh4">77.82</td>
+                <td class="tg-buh4">1,619.69</td>
+                <td class="tg-buh4">55.63</td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="5">665k</td>
+                <td class="tg-baqh" rowspan="5">CLIP + Phi3</td>
+                <td class="tg-buh4">SMoE-R</td>
+                <td class="tg-buh4">64.25</td>
+                <td class="tg-buh4">46.57</td>
+                <td class="tg-buh4">62.12</td>
+                <td class="tg-buh4">40.48</td>
+                <td class="tg-buh4">31.00</td>
+                <td class="tg-buh4">68.12</td>
+                <td class="tg-buh4">39.89</td>
+                <td class="tg-buh4">37.13</td>
+                <td class="tg-buh4">87.50</td>
+                <td class="tg-buh4">77.74</td>
+                <td class="tg-buh4">1,700.61</td>
+                <td class="tg-buh4">55.48</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Cosine-R</td>
+                <td class="tg-buh4">64.51</td>
+                <td class="tg-buh4">49.79</td>
+                <td class="tg-buh4">61.38</td>
+                <td class="tg-buh4">40.80</td>
+                <td class="tg-buh4">31.30</td>
+                <td class="tg-buh4">67.01</td>
+                <td class="tg-buh4">40.67</td>
+                <td class="tg-buh4">39.36</td>
+                <td class="tg-buh4">87.52</td>
+                <td class="tg-buh4">77.48</td>
+                <td class="tg-buh4">1,687.37</td>
+                <td class="tg-buh4">55.98</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Sigmoid-R</td>
+                <td class="tg-buh4">64.38</td>
+                <td class="tg-buh4">47.12</td>
+                <td class="tg-buh4">61.65</td>
+                <td class="tg-buh4">40.80</td>
+                <td class="tg-buh4">31.90</td>
+                <td class="tg-buh4">67.87</td>
+                <td class="tg-buh4">40.11</td>
+                <td class="tg-buh4">39.20</td>
+                <td class="tg-buh4">86.93</td>
+                <td class="tg-buh4">77.17</td>
+                <td class="tg-buh4">1,710.42</td>
+                <td class="tg-buh4">55.71</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Hyper-R</td>
+                <td class="tg-buh4">64.37</td>
+                <td class="tg-buh4">47.59</td>
+                <td class="tg-buh4">59.70</td>
+                <td class="tg-buh4">40.38</td>
+                <td class="tg-buh4">31.30</td>
+                <td class="tg-buh4">68.30</td>
+                <td class="tg-buh4">40.78</td>
+                <td class="tg-buh4">38.33</td>
+                <td class="tg-buh4">85.70</td>
+                <td class="tg-buh4">80.33</td>
+                <td class="tg-buh4"><b>1,726.87</b></td>
+                <td class="tg-buh4">55.68</td>
+              </tr>
+              <tr>
+                <td class="tg-buh4">Perturbed Cosine-R</td>
+                <td class="tg-buh4">64.70</td>
+                <td class="tg-buh4">47.16</td>
+                <td class="tg-buh4">61.90</td>
+                <td class="tg-buh4">39.43</td>
+                <td class="tg-buh4">32.80</td>
+                <td class="tg-buh4">69.50</td>
+                <td class="tg-buh4">39.89</td>
+                <td class="tg-buh4">40.33</td>
+                <td class="tg-buh4">87.42</td>
+                <td class="tg-buh4">77.64</td>
+                <td class="tg-buh4">1,672.70</td>
+                <td class="tg-buh4"><b>56.08</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Analysis: The Performance of different MoE algorithms over time</h2>
+        <div class="content has-text-justified">
+          <p>
+            Figure below offers a detailed view of the time-dependent performance of five MoE algorithms across 11 benchmarks. This figure illustrates the unique behavioral characteristics of each algorithm and supports our observation that, in most cases, the final checkpoints of the MoE algorithms do not necessarily yield the best performance. This finding underscores the potential benefits of applying early stopping to achieve optimal results.
+          </p>
+        </div>
+        <figure>
+          <img src="static/images/timelearnmetric_all_benchmarks.png", width="100%"></img>
+          <figcaption><i>Comparison of the performance of different MoE algorithms across 11 benchmarks over time. The experiments were conducted using the LLaVa-332K dataset and the CLIP + Phi3 model.</i></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Model Checkpoints</h2>
+        <div class="content has-text-justified">
+          <p>
+            We are making our entire experiment checkpoints publicly available to contribute to the community's research on the topic of Mixture of Experts (MoE). By reusing our checkpoints at the <b>Pre-Training</b> and <b>Pre-FineTuning</b> stages, we hope to help others save time and computational resources in their own experiments.
+          </p>
+        </div>
+        
+        <div class="content has-text-justified" style="display: flex; justify-content: center;">
+          <style type="text/css">
+            .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+            .tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;
+              text-align:center;}
+            .tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;
+              text-align:center;}
+            .tg .tg-baqh{text-align:center;vertical-align:top;font-weight: bold;}
+            .tg .tg-0lax{text-align:center;vertical-align:top;color:blue}
+            .tg a {color: blue;}
+          </style>
+          <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-baqh">Method</th>
+                <th class="tg-baqh">Stage</th>
+                <th class="tg-baqh">Siglip 224 + Phi3.5</th>
+                <th class="tg-baqh">Siglip 224 + Phi3</th>
+                <th class="tg-baqh">CLIP 336 + Phi3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-baqh">Pre-Training</td>
+                <td class="tg-0lax">-</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/pretrain">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/pft">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Pre-FineTuning</td>
+                <td class="tg-0lax">-</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/pft">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/pretrain">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh" rowspan="5">VIT 665K</td>
+                <td class="tg-baqh">SMoE-R</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/sft_full/smoe">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/sft_full/smoe">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Cosine-R</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/sft_full/smoe_cosinegating">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/sft_full/smoe_cosinegating">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Sigmoid-R</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-1">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Hyper-R</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/sft_full/hyperrouter">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/sft_full/hyperrouter">Link</a></td>
+              </tr>
+              <tr>
+                <td class="tg-baqh">Perturbed Cosine-R</td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3.5-Siglip-MoE/tree/main/sft_full/smoe_perturbed">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/your-link-2">Link</a></td>
+                <td class="tg-0lax"><a href="https://huggingface.co/Fsoft-AIC/Phi3-CLIP-MoE/tree/main/sft_full/smoe_perturbed">Link</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>        
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- <section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Enhancing Functional Correctness and Dependency Invocation abilities</h2>
+        <div class="content has-text-justified">
+          <p>
+            Two approaches are investigated to enhance the performance of generated code in terms of both functional correctness and dependency invocation.
+            <ul>
+              <li><b>Multi-round Debugging:</b> Leveraging test execution outputs and incorporating self-refinement through multiple rounds can dramatically boost a model's performance in generating accurate code and effectively utilizing dependencies.</li>
+              <figure>
+                <img src="static/images/debug_result.png", width="100%">
+                <figcaption>Figure 2:  Improvement of the performance of several models on RepoExec after 3-round debugging process.</figcaption>
+              </figure>
+              <li><b>Instruction tuning:</b> RepoExec also comes with a valuable instruction-tuning training dataset. The experimental results, highlighted in the table below, clearly demonstrate the effectiveness of this approach with just a single round of generation.</li>
+              <figure>
+                <img src="static/images/instruction_tuning.png", width="100%">
+                <figcaption>Table 2:  Improvement of the performance of several models on RepoExec after instruction tuning.</figcaption>
+              </figure>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End paper abstract -->
+
+
+
+<!-- Youtube video -->
+<!--  -->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre>
+        <code>
+        ...
+        </code>
+      </pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content", style="text-align: center;">
+          <img src="static/images/aic_logo.png", width="120px">
+          <p>
+            <h5>Contact us</h5>
+            🌐: <a href="https://www.fpt-aicenter.com/ai-residency/">fpt-aicenter</a>
+            Ⓜ️: support.ailab@fpt.com
+            </ul>
+          </p>
+          <p>
+            <h5>Acknowledgements</h5>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
 </body>
 </html>
