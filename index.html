@@ -7,7 +7,7 @@
   <meta name="description" content="LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models">
   <meta property="og:title" content="LIBMoE: A Library for comprehensive benchmarking Mixture of Experts in Large Language Models"/>
   <meta property="og:description" content="Multiple Choice QA Benchmark for Assessing Code Understanding Capabilities"/>
-  <meta property="og:url" content="https://fsoft-ai4code.github.io/codemmlu/"/>
+  <meta property="og:url" content="https://fsoft-aic.github.io/fsoft-LibMoE.github.io"/>
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
@@ -112,9 +112,9 @@
                 <span class="author-block">
                 <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Luong Tran<sup>1</sup></a>,</span>
                 <span class="author-block">
-                <a href="https://sites.google.com/view/vannguyen" target="_blank">Van Nguyen<sup>1</sup></a>,</span>
+                <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Van Nguyen<sup>1</sup></a>,</span>
                 <span class="author-block">
-                <a href="https://sites.google.com/view/quangpham93" target="_blank">Quang Pham<sup>1, 2</sup></a>,</span>
+                <a href="https://fsoft-aic.github.io/fsoft-LibMoE.github.io" target="_blank">Quang Pham<sup>1, 2</sup></a>,</span>
                 </span>
                 </div>
 
@@ -168,18 +168,31 @@
                   </a>
                 </span>
 
-                  <!-- Data Link -->
-                  <span class="link-block">
-                    <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/dataset_guide.md" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
+                <!-- Data Link -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/dataset_guide.md" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
                     <span>&#129303; Data Guide</span>
+                  </a>
+                </span> -->
+
+                <span class="link-block">
+                  <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/dataset_guide.md" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <img src="static/images/user-guide.png" alt="Mod Icon" style="width: 16px; height: 16px;">
+                    </span>
+                    <span>Dataset Guide</span>
                   </a>
                 </span>
 
                 <span class="link-block">
                   <a href="https://github.com/Fsoft-AIC/LibMoE/blob/main/docs/model_guide.md" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
-                  <span>&#129303; Model Guide</span>
+                  <span class="icon">
+                    <img src="static/images/user-guide.png" alt="Mod Icon" style="width: 16px; height: 16px;">
+                  </span>
+                  <span>Model Guide</span>
                 </a>
               </span>
 
@@ -241,9 +254,9 @@
           </p>
           <p>
             <ul>
-              <li>First, we present LibMoE, a comprehensive toolkit to streamline the development of MoE in LLMs.</li>
-              <li> Second, with LibMoE, we implemented a standard benchmark to standardize the evaluation of five state-of-the-art MoE algorithms.</li>
-              <li>  Lastly, LibMoE facilitates research beyond reporting the final performance by allowing researchers to easily explore various factors such as early-stopping, expert assignments, architecture choices, and many more.</li>
+              <li> <b>First</b>, we present LibMoE, a comprehensive toolkit to streamline the development of MoE in LLMs.</li>
+              <li> <b>Second</b>, with LibMoE, we implemented a standard benchmark to standardize the evaluation of five state-of-the-art MoE algorithms.</li>
+              <li> <b>Lastly</b>, LibMoE facilitates research beyond reporting the final performance by allowing researchers to easily explore various factors such as early-stopping, expert assignments, architecture choices, and many more.</li>
             </ul>
           </p>
           <p>
@@ -266,7 +279,7 @@
         <h2 class="title is-3">Training and Evaluation Pipelines</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Training Pipeline:</b> training, we adopt the vision-language pre-training task, which is one of the more challenging problems and only requires a rather small amount of data to start (around 1e9 tokens). To this end, we follow the CUMO framework to upcycle the LLaVA model, which consists of three modules: a pre-trained visual encoder, a pre-trained LLM, and a randomly initialized MLP connector. Training follows a <b>two-stage process</b>: 
+            <b>Training Pipeline:</b> training, we adopt the vision-language pre-training task, which is one of the more challenging problems and only requires a rather small amount of data to start <b>(around 1e9 tokens)</b>. To this end, we follow the CUMO framework to upcycle the LLaVA model, which consists of three modules: a pre-trained visual encoder, a pre-trained LLM, and a randomly initialized MLP connector. Training follows a two-stage process: 
           </p>
           <p>
             <ul>
@@ -535,8 +548,11 @@
             .tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
               font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;
               text-align:center;}
-            .tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+            /* .tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
               font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;
+              text-align:center;} */
+            .tg .th{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+              font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;
               text-align:center;}
             .tg .tg-baqh{text-align:center;vertical-align:top;font-weight: bold;}
             .tg .tg-0lax{text-align:center;vertical-align:top;color:blue}
@@ -545,11 +561,11 @@
           <table class="tg">
             <thead>
               <tr>
-                <th class="tg-baqh">Method</th>
-                <th class="tg-baqh">Stage</th>
-                <th class="tg-baqh">Siglip 224 + Phi3.5</th>
-                <th class="tg-baqh">Siglip 224 + Phi3</th>
-                <th class="tg-baqh">CLIP 336 + Phi3</th>
+                <td class="tg-baqh">Method</td>
+                <td class="tg-baqh">Stage</td>
+                <td class="tg-baqh">Siglip 224 + Phi3.5</td>
+                <td class="tg-baqh">Siglip 224 + Phi3</td>
+                <td class="tg-baqh">CLIP 336 + Phi3</td>
               </tr>
             </thead>
             <tbody>
